@@ -1,0 +1,25 @@
+$ cp .env.example .env
+$ cat .env
+GREETING=Hello, Docker!
+HOST_PORT=8080
+
+$ docker compose up -d --build
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 0, "hostname": "d9dc59509481", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 1, "hostname": "d9dc59509481", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 2, "hostname": "d9dc59509481", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "d9dc59509481", "storage": "redis"}
+
+$ docker compose down
+
+$ docker compose up -d
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "7d296d3a85a8", "storage": "redis"}

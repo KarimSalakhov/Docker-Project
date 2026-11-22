@@ -1,0 +1,27 @@
+$ docker build -t docker .
+
+$ docker run -d --name new-app -p 8080:8000 -e 'GREETING=Hello, Docker!' docker
+d437f45697e64dd540249c36ea6ff339145ab6bcc80dcaaac8e5eeb52d82682b
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 0, "hostname": "d437f45697e6", "storage": "sqlite"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 1, "hostname": "d437f45697e6", "storage": "sqlite"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 2, "hostname": "d437f45697e6", "storage": "sqlite"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "d437f45697e6", "storage": "sqlite"}
+
+$ docker logs new-app > logs.txt
+
+$ cat logs.txt
+2026-11-22 13:44:26,830 listening port=8000 storage=sqlite
+2026-11-22 13:44:45,317 http 172.17.0.1 "GET / HTTP/1.1" 200 -
+2026-11-22 13:45:28,713 http 172.17.0.1 "POST /increment HTTP/1.1" 200 -
+2026-11-22 13:45:35,311 http 172.17.0.1 "POST /increment HTTP/1.1" 200 -
+2026-11-22 13:45:36,050 http 172.17.0.1 "POST /increment HTTP/1.1" 200 -
+2026-11-22 13:45:37,184 http 172.17.0.1 "POST /increment HTTP/1.1" 200 -
+2026-11-22 13:45:40,564 http 172.17.0.1 "GET / HTTP/1.1" 200 -

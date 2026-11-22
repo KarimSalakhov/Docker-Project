@@ -1,0 +1,54 @@
+$ docker compose up -d --build
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 0, "hostname": "70be3589864d", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 1, "hostname": "70be3589864d", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 2, "hostname": "70be3589864d", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "70be3589864d", "storage": "redis"}
+
+$ docker compose down
+
+$ docker compose up -d
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "8875c2627553", "storage": "redis"}
+
+$ docker compose stop redis
+
+$ curl -i http://localhost:8080/healthz
+HTTP/1.0 200 OK
+{"status": "alive"}
+
+$ curl -i http://localhost:8080/readyz
+HTTP/1.0 503 Service Unavailable
+{"error": "storage_unavailable"}
+
+$ curl -i -X POST http://localhost:8080/increment
+HTTP/1.0 503 Service Unavailable
+{"error": "storage_unavailable"}
+
+$ docker compose start redis
+
+$ curl -i http://localhost:8080/readyz
+HTTP/1.0 200 OK
+{"status": "ready", "storage": "redis"}
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 3, "hostname": "8875c2627553", "storage": "redis"}
+
+$ curl -X POST http://localhost:8080/increment
+{"greeting": "Hello, Docker!", "count": 4, "hostname": "8875c2627553", "storage": "redis"}
+
+$ curl http://localhost:8080/
+{"greeting": "Hello, Docker!", "count": 4, "hostname": "8875c2627553", "storage": "redis"}
+
+$ docker compose ps
+NAME          IMAGE             SERVICE   STATUS
+app-app-1     app-app           app       Up 5 minutes (healthy)
+app-redis-1   redis:7.4-alpine  redis     Up 3 minutes (healthy)
