@@ -4,13 +4,13 @@
 
 ```sh
 cp .env.example .env
-..
+...
 
 Запуск:
 
 ```sh
 docker compose up -d --build
-..
+...
 
 Остановка:
 
