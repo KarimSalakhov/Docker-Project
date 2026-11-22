@@ -21,6 +21,6 @@ docker compose down
 Можно добавить флаг -v, он сотрет сохраненный счетчик. 
 
 ## Проверки
--test_for_4_points.txt - проверки на 4 балла
--test_for_6_points.txt - проверки на 6 баллов
--	test_for_8_points.txt - проверки на 8 баллов
+ test_for_4_points.txt - проверки на 4 балла
+ test_for_6_points.txt - проверки на 6 баллов
+ test_for_8_points.txt - проверки на 8 баллов
