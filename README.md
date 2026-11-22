@@ -4,19 +4,19 @@
 
 ```sh
 cp .env.example .env
-...
+```
 
 Запуск:
 
 ```sh
 docker compose up -d --build
-...
+```
 
 Остановка:
 
 ```sh
 docker compose down
-...
+```
 
 Можно добавить флаг -v, он сотрет сохраненный счетчик. 
 
